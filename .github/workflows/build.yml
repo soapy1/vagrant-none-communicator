@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'CHANGELOG.md'
+
+jobs:
+  build-gem:
+    name: Build gem
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v1
+      - name: Set Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Build RubyGem
+        run: gem build vagrant-none-communicator.gemspec
+        working-directory: ${{github.workspace}}
